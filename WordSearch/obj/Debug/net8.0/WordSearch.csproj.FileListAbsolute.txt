@@ -1,0 +1,14 @@
+D:\COSE\ACC\Game1377_Exercises\WordSearch\WordSearch\bin\Debug\net8.0\WordSearch.exe
+D:\COSE\ACC\Game1377_Exercises\WordSearch\WordSearch\bin\Debug\net8.0\WordSearch.deps.json
+D:\COSE\ACC\Game1377_Exercises\WordSearch\WordSearch\bin\Debug\net8.0\WordSearch.runtimeconfig.json
+D:\COSE\ACC\Game1377_Exercises\WordSearch\WordSearch\bin\Debug\net8.0\WordSearch.dll
+D:\COSE\ACC\Game1377_Exercises\WordSearch\WordSearch\bin\Debug\net8.0\WordSearch.pdb
+D:\COSE\ACC\Game1377_Exercises\WordSearch\WordSearch\obj\Debug\net8.0\WordSearch.GeneratedMSBuildEditorConfig.editorconfig
+D:\COSE\ACC\Game1377_Exercises\WordSearch\WordSearch\obj\Debug\net8.0\WordSearch.AssemblyInfoInputs.cache
+D:\COSE\ACC\Game1377_Exercises\WordSearch\WordSearch\obj\Debug\net8.0\WordSearch.AssemblyInfo.cs
+D:\COSE\ACC\Game1377_Exercises\WordSearch\WordSearch\obj\Debug\net8.0\WordSearch.csproj.CoreCompileInputs.cache
+D:\COSE\ACC\Game1377_Exercises\WordSearch\WordSearch\obj\Debug\net8.0\WordSearch.dll
+D:\COSE\ACC\Game1377_Exercises\WordSearch\WordSearch\obj\Debug\net8.0\refint\WordSearch.dll
+D:\COSE\ACC\Game1377_Exercises\WordSearch\WordSearch\obj\Debug\net8.0\WordSearch.pdb
+D:\COSE\ACC\Game1377_Exercises\WordSearch\WordSearch\obj\Debug\net8.0\WordSearch.genruntimeconfig.cache
+D:\COSE\ACC\Game1377_Exercises\WordSearch\WordSearch\obj\Debug\net8.0\ref\WordSearch.dll

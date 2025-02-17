@@ -1,0 +1,58 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\COSE\\ACC\\Game1377_Exercises\\WordSearch\\WordSearch\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{926C1A87-8012-4F2F-8D51-52E3BB129EFA}|WordSearch.csproj|d:\\cose\\acc\\game1377_exercises\\wordsearch\\wordsearch\\textfilegenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{926C1A87-8012-4F2F-8D51-52E3BB129EFA}|WordSearch.csproj|solutionrelative:textfilegenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{926C1A87-8012-4F2F-8D51-52E3BB129EFA}|WordSearch.csproj|d:\\cose\\acc\\game1377_exercises\\wordsearch\\wordsearch\\wordsearch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{926C1A87-8012-4F2F-8D51-52E3BB129EFA}|WordSearch.csproj|solutionrelative:wordsearch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "WordSearch.cs",
+              "DocumentMoniker": "D:\\COSE\\ACC\\Game1377_Exercises\\WordSearch\\WordSearch\\WordSearch.cs",
+              "RelativeDocumentMoniker": "WordSearch.cs",
+              "ToolTip": "D:\\COSE\\ACC\\Game1377_Exercises\\WordSearch\\WordSearch\\WordSearch.cs",
+              "RelativeToolTip": "WordSearch.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-17T02:38:02.437Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TextFileGenerator.cs",
+              "DocumentMoniker": "D:\\COSE\\ACC\\Game1377_Exercises\\WordSearch\\WordSearch\\TextFileGenerator.cs",
+              "RelativeDocumentMoniker": "TextFileGenerator.cs",
+              "ToolTip": "D:\\COSE\\ACC\\Game1377_Exercises\\WordSearch\\WordSearch\\TextFileGenerator.cs",
+              "RelativeToolTip": "TextFileGenerator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-16T20:11:33.901Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
