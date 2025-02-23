@@ -1,78 +1,80 @@
-﻿using System.Security.Claims;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace WordSearch
 {
     internal class TextFileGenerator
     {
-        static void Main(string[] args)
+        public static Dictionary<string, string[]> wordsDictionary; 
+        public static void MakeFile()
         {
             StreamWriter writer = new StreamWriter("words.txt");
 
-            var wordsDictionary = new Dictionary<string, string[]>
-        {
-            { "Ducati", new string[15] //15 is not necessary, just a check to be sure that the words are actually 15
+           wordsDictionary = new Dictionary<string, string[]>
+            //string[,] database = new string[10,15];
+            {
+            { "Ducati", new string[] //15 is not necessary, just a check to be sure that the words are actually 15
                 {
                     "Panigale", "Monster", "Diavel", "Hypermotard", "Multistrada", "Scrambler", "Corse", "Evoluzione", "Desmosedici", "Supersport", "Motard", "Regolarita", "Cagiva", "Indiana", "Cucciolo"
                 }
             },
-            { "Ferrari", new string[15] 
+            { "Ferrari", new string[]
                 {
                     "Testarossa", "Enzo", "Roma", "Portofino", "Modena", "Maranello", "Scuderia", "Stradale", "GTO", "Monza", "Daytona", "Purosangue", "Challenge", "Dino", "California"
                 }
             },
-            { "Yamaha", new string[15]
+            { "Yamaha", new string[]
                 {
                    "Raptor", "Tracer", "Tenere", "Bolt", "Fazer", "Warrior", "Dragstar", "Roadliner", "Virago", "Maxim", "Star", "Raider", "Venture", "Morphous", "Vino"
                 }
             },
-            { "Suzuki", new string[15]
+            { "Suzuki", new string[]
                 {
                     "Hayabusa", "Katana", "VStrom", "Burgman", "Bandit", "Intruder", "Gladius", "Marauder", "Savage", "Tempter", "Hustler", "Freewind", "Madura", "Desperado", "Boulevard"
                 }
             },
-            { "Nissan", new string[15]
+            { "Nissan", new string[]
                 {
                     "Skyline", "Silvia", "Fairlady", "Cedric", "Juke", "Altima", "Maxima", "Murano", "Pathfinder", "Patrol", "Navara", "Titan", "Rogue", "Armada", "Laurel"
                 }
             },
-            { "Kawasaki", new string[15]
+            { "Kawasaki", new string[]
                 {
                    "Ninja", "Versys", "Concours", "Vulcan", "Zephyr", "Eliminator", "Kaze", "Brute", "Estrella", "Meguro", "Balius", "Voyager", "Spectre", "DTracker", "Zed"
                 }
             },
-            { "BMW", new string[15]
+            { "BMW", new string[]
                 {
                   "Roadster", "Touring", "Classic", "Cruiser", "Stratos", "Avus", "Dakar", "Kompressor", "Isetta", "Mille", "Venture", "GranTurismo", "Speedster", "Cabrio", "Alpina"
                 }
             },
-            { "Lamborghini", new string[15]
+            { "Lamborghini", new string[]
                 {
                   "Aventador", "Huracan", "Urus", "Gallardo", "Murcielago", "Diablo", "Reventon", "Veneno", "Countach", "Sian", "Miura", "Essenza", "Centenario", "Jarama", "Islero"
                 }
             },
-            { "Honda", new string[15]
+            { "Honda", new string[]
                 {
                    "Civic", "Accord", "Prelude", "Fit", "Pilot", "Ridgeline", "Goldwing", "Fireblade", "Hornet", "Transalp", "Shadow", "Deauville", "Dominator", "Magna", "Rebel"
                 }
             },
-            { "Porsche", new string[15]
+            { "Porsche", new string[]
                 {
                   "Cayman", "Boxster", "Taycan", "Macan", "Panamera", "Cayenne", "Carrera", "Spyder", "Speedster", "Targa", "MissionE", "Clubsport", "Sebring", "Martini", "Cisitalia"
                 }
             },
         };
 
-            foreach (var category in wordsDictionary)
+            foreach (KeyValuePair<string, string[]> category in wordsDictionary)
             {
-                writer.WriteLine(category.Key); 
-                foreach (var word in category.Value)
+                writer.WriteLine(category.Key);
+                foreach (string word in category.Value)
                 {
-                    writer.WriteLine(word); 
+                    writer.WriteLine(word);
                 }
-                writer.WriteLine("\n"); 
-                
+                writer.WriteLine(" ");
+
             }
             writer.Close();
         }

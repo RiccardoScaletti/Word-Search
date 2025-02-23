@@ -12,3 +12,4 @@ D:\COSE\ACC\Game1377_Exercises\WordSearch\WordSearch\obj\Debug\net8.0\refint\Wor
 D:\COSE\ACC\Game1377_Exercises\WordSearch\WordSearch\obj\Debug\net8.0\WordSearch.pdb
 D:\COSE\ACC\Game1377_Exercises\WordSearch\WordSearch\obj\Debug\net8.0\WordSearch.genruntimeconfig.cache
 D:\COSE\ACC\Game1377_Exercises\WordSearch\WordSearch\obj\Debug\net8.0\ref\WordSearch.dll
+D:\COSE\ACC\Game1377_Exercises\WordSearch\WordSearch\obj\Debug\net8.0\WordSearch.sourcelink.json
