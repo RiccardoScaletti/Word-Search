@@ -14,7 +14,7 @@ namespace WordSearch
            wordsDictionary = new Dictionary<string, string[]>
             //string[,] database = new string[10,15];
             {
-            { "Ducati", new string[] //15 is not necessary, just a check to be sure that the words are actually 15
+            { "Ducati", new string[] 
                 {
                     "Panigale", "Monster", "Diavel", "Hypermotard", "Multistrada", "Scrambler", "Corse", "Evoluzione", "Desmosedici", "Supersport", "Motard", "Regolarita", "Cagiva", "Indiana", "Cucciolo"
                 }
@@ -64,7 +64,7 @@ namespace WordSearch
                   "Cayman", "Boxster", "Taycan", "Macan", "Panamera", "Cayenne", "Carrera", "Spyder", "Speedster", "Targa", "MissionE", "Clubsport", "Sebring", "Martini", "Cisitalia"
                 }
             },
-        };
+            };
 
             foreach (KeyValuePair<string, string[]> category in wordsDictionary)
             {

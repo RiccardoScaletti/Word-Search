@@ -4,12 +4,10 @@ using System.Linq;
 
 namespace WordSearch
 {
-    using System;
-    using System.IO;
 
     internal class WordSearch
     {
-        static string[][] grid = new string[21][]; // 21x21 Grid
+        static string[][] grid = new string[21][]; 
         static Random random = new Random();
         static string[] categories;
         static string[] words;
@@ -56,12 +54,15 @@ namespace WordSearch
                 }
             }
 
+            InitializeGrid();
+            DisplayGrid();
+
             switch (playerInputInt)
             {
                     case 0:
                     GetWords("Ducati");
                     break;
-                     case 1:
+                    case 1:
                     GetWords("Ferrari");
                     break;
                     case 2:
@@ -74,19 +75,22 @@ namespace WordSearch
                     GetWords("Nissan");
                     break;
                     case 5:
+                    GetWords("Kawasaki");
                     break;
                     case 6:
+                    GetWords("BMW");
                     break;
                     case 7:
+                    GetWords("Lamborghini");
                     break;
                     case 8:
+                    GetWords("Honda");
                     break;
                     case 9:
+                    GetWords("Porsche");
                     break;
             }
 
-            InitializeGrid();
-            DisplayGrid();
         }
 
        
@@ -100,20 +104,19 @@ namespace WordSearch
             }
         }
 
-        private static void GetWords(string cat)
+        private static void GetWords(string brand)
         {
-            words = TextFileGenerator.wordsDictionary[cat];
-            string[] selectedWords = new string[7];
-            while (selectedWords[7] == null)
+            if (TextFileGenerator.wordsDictionary.TryGetValue(brand, out string[] models))
             {
-                int index = random.Next(words.Length);// Random index from 0 to 14
-                selectedWords[index] = (words[index]);
-                
+                    string[] selectedModels = models.OrderBy(x => random.Next()).Take(8).ToArray();
+
+                    Console.WriteLine("Selected models for " + brand);
+                    foreach (var model in selectedModels)
+                    {
+                        Console.WriteLine(model);
+                    }
             }
-            foreach (string word in selectedWords) { Console.WriteLine(word); }
         }
-
-
 
         private static void InitializeGrid()
         {
@@ -130,6 +133,23 @@ namespace WordSearch
                 grid[i][0] = i.ToString();
             }
 
+            foreach (var word in words)
+            {
+                bool placed = false;
+                while (!placed)
+                {
+                    int row = random.Next(20);
+                    int col = random.Next(20);
+                    int direction = random.Next(3); // 0: horizontal, 1: vertical, 2: diagonal
+
+                    if (CanPlaceWord(grid, word, row, col, direction))
+                    {
+                        PlaceWord(grid, word, row, col, direction);
+                        placed = true;
+                    }
+                }
+            }
+
             for (int row = 1; row < 21; row++)
             {
                 for (int col = 1; col < 21; col++)
@@ -137,6 +157,8 @@ namespace WordSearch
                     grid[row][col] = ((char)('A' + random.Next(0, 26))).ToString(); // Random letter A-Z
                 }
             }
+
+
         }
 
         private static void DisplayGrid()
