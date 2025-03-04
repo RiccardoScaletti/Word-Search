@@ -5,15 +5,45 @@ using System.Linq;
 namespace WordSearch
 {
 
+    enum Directions
+    {
+        HorizontalLeftRight, 
+        HorizontalRightLeft, 
+        VerticalTopDown, 
+        VerticalDownTop, 
+        DiagonalDownForward, 
+        DiagonalUpForward, 
+        DiagonalDownBackward, 
+        DiagonalUpBackward,
+    }
+
     internal class WordSearch
     {
-        static string[][] grid = new string[21][]; 
         static Random random = new Random();
+
+        static string[][] grid = new string[21][]; 
         static string[] categories;
         static string[] words;
-        static bool stop;
         static string playerInput = "";
+        static string brand = "";
+        static string rowInput;
+        static string colInput;
+
+        static bool stop;
+        static bool isPlaying = true;
+        static bool coordinatesCheck = false;
+
         static int playerInputInt = 0;
+        static int startRow;
+        static int startCol;
+        static int RowOffset;
+        static int ColOffset;
+        static int newRow;
+        static int newCol;
+        static int rowInputInt;
+        static int colInputInt;
+        static int nOfCheckedWords;
+
 
         static void Main(string[] args)
         {
@@ -28,10 +58,10 @@ namespace WordSearch
             
             stop = false;
 
+            //player game inputs
             while (!stop)
             {
                 playerInput = Console.ReadLine();
-                playerInputInt = 0;
 
                 if (Int32.TryParse(playerInput, out playerInputInt))
                 {
@@ -53,9 +83,6 @@ namespace WordSearch
                     }
                 }
             }
-
-            InitializeGrid();
-            DisplayGrid();
 
             switch (playerInputInt)
             {
@@ -91,9 +118,57 @@ namespace WordSearch
                     break;
             }
 
-        }
+            InitializeGrid();
+            InsertWordsInGrid();
 
-       
+            DisplayGrid();
+
+            do //main gameplay loop
+            {
+                stop = true;
+                do //player word input loop
+                {
+                    
+                    Console.WriteLine("Which word are you looking for? \n");
+                    playerInput = Console.ReadLine();
+
+                    foreach (string word in words)
+                    {
+                        if (playerInput == word)
+                        {
+                            stop = false;
+                            break;
+                        }
+                    }
+                    if (stop)
+                    {  
+                        Console.WriteLine("input is not in the list of models, try again: \n");
+                    }
+                   
+                } while (stop);
+
+                AskCoordinates();
+                CheckCoordinates(playerInput);
+
+                
+                if (coordinatesCheck)//keep playing
+                {
+                    Console.WriteLine("Word found! \n");
+                    nOfCheckedWords++;
+                    if (nOfCheckedWords == 2)
+                    {
+                        isPlaying = false;
+                    }
+                }
+                else if(!coordinatesCheck)//wrong word/wrong input
+                {
+                    Console.WriteLine("Word not found! \n");
+                }
+                
+            } while (isPlaying);
+
+        }
+    
         private static void GetCategories()
         {
            
@@ -104,72 +179,220 @@ namespace WordSearch
             }
         }
 
-        private static void GetWords(string brand)
+        private static void GetWords(string brandInput)
         {
-            if (TextFileGenerator.wordsDictionary.TryGetValue(brand, out string[] models))
+            if (TextFileGenerator.wordsDictionary.TryGetValue(brandInput, out string[] models))
             {
-                    string[] selectedModels = models.OrderBy(x => random.Next()).Take(8).ToArray();
-
-                    Console.WriteLine("Selected models for " + brand);
-                    foreach (var model in selectedModels)
-                    {
-                        Console.WriteLine(model);
-                    }
+                brand = brandInput;
+                words = models.OrderBy(x => random.Next()).Take(8).ToArray();
             }
         }
 
         private static void InitializeGrid()
         {
-            for (int i = 0; i < 21; i++)
+            for (int i = 0; i < grid.Length; i++)
             {
-                grid[i] = new string[21]; // Initialize each row
+                grid[i] = new string[grid.Length]; 
             }
 
-            grid[0][0] = " "; // Empty corner
+            grid[0][0] = "0";
 
-            for (int i = 1; i < 21; i++)
+            for (int i = 1; i < grid.Length; i++)
             {
                 grid[0][i] = i.ToString(); 
                 grid[i][0] = i.ToString();
             }
 
-            foreach (var word in words)
+           
+            for (int row = 1; row < grid.Length; row++)
             {
-                bool placed = false;
-                while (!placed)
+                for (int col = 1; col < grid.Length; col++)
                 {
-                    int row = random.Next(20);
-                    int col = random.Next(20);
-                    int direction = random.Next(3); // 0: horizontal, 1: vertical, 2: diagonal
+                    grid[row][col] = ((char)('A' + random.Next(0, 26))).ToString(); 
+                }
+            }
+        }
 
-                    if (CanPlaceWord(grid, word, row, col, direction))
+        private static void InsertWordsInGrid()
+        {
+            foreach (string currentWord in words)
+            {
+                bool inserted = false;
+                while (!inserted)
+                {
+                    bool canPlace = true;
+                    startRow = random.Next(grid.Length);
+                    startCol = random.Next(grid.Length);
+
+                    Array DirectionValues = Enum.GetValues(typeof(Directions)); //getValues gives back an array of all the values of Directions
+                    Directions dir = (Directions)random.Next(DirectionValues.Length);
+                    
+                    switch (dir)
                     {
-                        PlaceWord(grid, word, row, col, direction);
-                        placed = true;
+                        default:
+                            Console.WriteLine("wrong direction");
+                            RowOffset = 0;
+                            ColOffset = 0;
+                            break;
+                        case Directions.HorizontalLeftRight:
+                            RowOffset = 0;
+                            ColOffset = 1;
+                            break;
+                        case Directions.HorizontalRightLeft:
+                            RowOffset = 0;
+                            ColOffset = -1;
+                            break;
+                        case Directions.VerticalTopDown:
+                            RowOffset = 1;
+                            ColOffset = 0;
+                            break;
+                        case Directions.VerticalDownTop:
+                            RowOffset = -1;
+                            ColOffset = 0;
+                            break;
+                        case Directions.DiagonalUpForward:
+                            RowOffset = -1;
+                            ColOffset = 1;
+                            break;
+                        case Directions.DiagonalUpBackward:
+                            RowOffset = -1;
+                            ColOffset = -1;
+                            break;
+                        case Directions.DiagonalDownForward:
+                            RowOffset = 1;
+                            ColOffset = 1;
+                            break;
+                        case Directions.DiagonalDownBackward:
+                            RowOffset = 1;
+                            ColOffset = -1;
+                            break;
+                    }
+
+                    for (int i = 0; i < currentWord.Length; i++)
+                    {
+                        int newRow = startRow + i * RowOffset;
+                        int newCol = startCol + i * ColOffset;
+
+                        if (newRow < 1 || newRow >= grid.Length || newCol < 1 || newCol >= grid[newRow].Length)
+                        {
+                            Console.WriteLine("false");
+                            canPlace = false;
+                            break; 
+                        }
+                    }
+
+                    if (canPlace)
+                    {
+                        for (int i = 0; i < currentWord.Length; i++)
+                        {
+                            int newRow = startRow + i * RowOffset;
+                            int newCol = startCol + i * ColOffset;
+                            grid[newRow][newCol] = currentWord[i].ToString().ToLower(); 
+                        }
+                        inserted = true; 
                     }
                 }
             }
-
-            for (int row = 1; row < 21; row++)
-            {
-                for (int col = 1; col < 21; col++)
-                {
-                    grid[row][col] = ((char)('A' + random.Next(0, 26))).ToString(); // Random letter A-Z
-                }
-            }
-
-
         }
-
+     
         private static void DisplayGrid()
         {
-            for (int row = 0; row < 21; row++)
+            for (int row = 0; row < grid.Length; row++)
             {
-                for (int col = 0; col < 21; col++)
+                for (int col = 0; col < grid.Length; col++)
                 {
                     Console.Write(grid[row][col].PadRight(3));
                 }
                 Console.WriteLine();
+            }
+
+            Console.WriteLine("\n" + "Selected models for " + brand);
+            foreach (string model in words)
+            {
+                Console.WriteLine(model);
+            }
+        }
+
+        private static void AskCoordinates()
+        { 
+            Console.WriteLine("Insert row of your word: ");
+
+            stop = false;
+            while (!stop)
+            {
+                rowInput = Console.ReadLine();
+
+                if (Int32.TryParse(rowInput, out rowInputInt))
+                {
+                    if (rowInputInt < 1 || rowInputInt > 20)
+                    {
+                        Console.WriteLine("Input out of bounds, select a number between 1 and 20: ");
+                    }
+                    else
+                    {
+                        stop = true;
+                        break;
+                    }
+                }
+                else
+                {
+                    if (!stop)
+                    {
+                        Console.WriteLine("Wrong input, try again: ");
+                    }
+                }
+            }
+
+            Console.WriteLine("Insert column of your word: ");
+
+            stop = false;
+            while (!stop)
+            {
+                colInput = Console.ReadLine();
+
+                if (Int32.TryParse(colInput, out colInputInt))
+                {
+                    if (colInputInt < 1 || colInputInt > 20)
+                    {
+                        Console.WriteLine("Input out of bounds, select a number between 1 and 20: ");
+                    }
+                    else
+                    {
+                        stop = true;
+                        break;
+                    }
+                }
+                else
+                {
+                    if (!stop)
+                    {
+                        Console.WriteLine("Wrong input, try again: ");
+                    }
+                }
+            }
+
+        }
+
+        private static void CheckCoordinates(string currentWord)
+        {
+            Console.WriteLine("current word: " + currentWord);           
+
+            for (int i = 0; i < currentWord.Length; i++)
+            {
+                coordinatesCheck = false;
+                int newRow = rowInputInt + i * RowOffset;
+                int newCol = colInputInt + i * ColOffset;
+
+                Console.WriteLine("New row:" + newRow);
+
+                Console.WriteLine("grid letter: " + grid[newRow][newCol]);
+                Console.WriteLine("Input letter: " + currentWord[i].ToString().ToLower());
+
+                if (grid[newRow][newCol] == currentWord[i].ToString().ToLower())
+                {
+                    coordinatesCheck = true;
+                    grid[newRow][newCol] = "";
+                }
             }
         }
     }
