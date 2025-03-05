@@ -31,6 +31,7 @@ namespace WordSearch
         static bool stop;
         static bool isPlaying = true;
         static bool coordinatesCheck = false;
+        static bool wordFoundCheck = false;
 
         static int playerInputInt = 0;
         static int startRow;
@@ -119,6 +120,7 @@ namespace WordSearch
 
             InitializeGrid();
             InsertWordsInGrid();
+            FillGrid();
             DisplayGrid();
 
             do //main gameplay loop
@@ -127,8 +129,8 @@ namespace WordSearch
                 do //player word input loop
                 {
 
-                    Console.WriteLine("\n Which word are you looking for? \n");
-                    playerInput = Console.ReadLine();
+                    Console.WriteLine("\nWhich word are you looking for? \n");
+                    playerInput = Console.ReadLine().ToUpper().Trim();
 
                     foreach (string word in words)
                     {
@@ -157,7 +159,7 @@ namespace WordSearch
                     {
                         isPlaying = false;
                     }
-                    DisplayGrid(); 
+                    DisplayGrid();
                 }
                 else if (!coordinatesCheck)//wrong word/wrong input
                 {
@@ -168,6 +170,7 @@ namespace WordSearch
 
         }
 
+      
         private static void GetCategories()
         {
 
@@ -183,7 +186,7 @@ namespace WordSearch
             if (TextFileGenerator.wordsDictionary.TryGetValue(brandInput, out string[] models))
             {
                 brand = brandInput;
-                words = models.OrderBy(x => random.Next()).Take(8).ToArray();
+                words = models.OrderBy(sort => random.Next()).Take(8).ToArray();
             }
         }
 
@@ -202,12 +205,11 @@ namespace WordSearch
                 grid[i][0] = i.ToString();
             }
 
-
             for (int row = 1; row < grid.Length; row++)
             {
                 for (int col = 1; col < grid.Length; col++)
                 {
-                    grid[row][col] = ((char)('A' + random.Next(0, 26))).ToString();
+                    grid[row][col] = "";
                 }
             }
         }
@@ -272,7 +274,7 @@ namespace WordSearch
                         int newRow = startRow + i * RowOffset;
                         int newCol = startCol + i * ColOffset;
 
-                        if (newRow < 1 || newRow >= grid.Length || newCol < 1 || newCol >= grid[newRow].Length)
+                        if (newRow < 1 || newRow >= grid.Length || newCol < 1 || newCol >= grid[newRow].Length || grid[newRow][newCol] != "")
                         {
                             canPlace = false;
                             break;
@@ -285,12 +287,26 @@ namespace WordSearch
                         {
                             int newRow = startRow + i * RowOffset;
                             int newCol = startCol + i * ColOffset;
-                            grid[newRow][newCol] = currentWord[i].ToString().ToLower();
+                            grid[newRow][newCol] = currentWord[i].ToString().ToUpper();
+                            //grid[newRow][newCol] = currentWord[i].ToString().ToLower();
                         }
 
                         wordPositions[currentWord] = new int[] { startRow, startCol, RowOffset, ColOffset };
-
                         inserted = true;
+                    }
+                }
+            }
+        }
+       
+        private static void FillGrid()
+        {
+            for (int row = 1; row < grid.Length; row++)
+            {
+                for (int col = 1; col < grid.Length; col++)
+                {
+                    if (grid[row][col] == "")
+                    {
+                        grid[row][col] = ((char)('A' + random.Next(0, 26))).ToString();
                     }
                 }
             }
@@ -321,7 +337,7 @@ namespace WordSearch
             stop = false;
             while (!stop)
             {
-                rowInput = Console.ReadLine();
+                rowInput = Console.ReadLine().Trim();
 
                 if (Int32.TryParse(rowInput, out rowInputInt))
                 {
@@ -349,7 +365,7 @@ namespace WordSearch
             stop = false;
             while (!stop)
             {
-                colInput = Console.ReadLine();
+                colInput = Console.ReadLine().Trim();
 
                 if (Int32.TryParse(colInput, out colInputInt))
                 {
@@ -379,25 +395,34 @@ namespace WordSearch
             Console.WriteLine("Checking word: " + currentWord);
             coordinatesCheck = false;
 
-            int[] position = wordPositions[currentWord];
-            int startRow = position[0];
-            int startCol = position[1];
-            int rowOffset = position[2];
-            int colOffset = position[3];
+            int[] currentWordInfos = wordPositions[currentWord];
+            int startRow = currentWordInfos[0];
+            int startCol = currentWordInfos[1];
+            int rowOffset = currentWordInfos[2];
+            int colOffset = currentWordInfos[3];
+
+            if (rowInputInt != startRow || colInputInt != startCol)
+            {
+                return;  
+            }
 
             for (int i = 0; i < currentWord.Length; i++)
             {
                 int newRow = startRow + i * rowOffset;
                 int newCol = startCol + i * colOffset;
+                coordinatesCheck = true;
+                grid[newRow][newCol] = "";
+                RemoveWordFromList(currentWord);
+            }
+        }
 
-                if (grid[newRow][newCol] == currentWord[i].ToString().ToLower())
+        private static void RemoveWordFromList(string currentWord)
+        {
+            for (int i = 0; i < words.Length; i++) 
+            {
+                if (words[i] == currentWord)
                 {
-                    coordinatesCheck = true;
-                    grid[newRow][newCol] = "";
-                }
-                else
-                {
-                    return;
+                    words[i] = "";
                 }
             }
         }

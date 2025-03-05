@@ -11,60 +11,59 @@ namespace WordSearch
         {
             StreamWriter writer = new StreamWriter("words.txt");
 
-           wordsDictionary = new Dictionary<string, string[]>
-            //string[,] database = new string[10,15];
+            wordsDictionary = new Dictionary<string, string[]>
+    {
+        { "Ducati", new string[]
             {
-            { "Ducati", new string[] 
-                {
-                    "Panigale", "Monster", "Diavel", "Hypermotard", "Multistrada", "Scrambler", "Corse", "Evoluzione", "Desmosedici", "Supersport", "Motard", "Regolarita", "Cagiva", "Indiana", "Cucciolo"
-                }
-            },
-            { "Ferrari", new string[]
-                {
-                    "Testarossa", "Enzo", "Roma", "Portofino", "Modena", "Maranello", "Scuderia", "Stradale", "GTO", "Monza", "Daytona", "Purosangue", "Challenge", "Dino", "California"
-                }
-            },
-            { "Yamaha", new string[]
-                {
-                   "Raptor", "Tracer", "Tenere", "Bolt", "Fazer", "Warrior", "Dragstar", "Roadliner", "Virago", "Maxim", "Star", "Raider", "Venture", "Morphous", "Vino"
-                }
-            },
-            { "Suzuki", new string[]
-                {
-                    "Hayabusa", "Katana", "VStrom", "Burgman", "Bandit", "Intruder", "Gladius", "Marauder", "Savage", "Tempter", "Hustler", "Freewind", "Madura", "Desperado", "Boulevard"
-                }
-            },
-            { "Nissan", new string[]
-                {
-                    "Skyline", "Silvia", "Fairlady", "Cedric", "Juke", "Altima", "Maxima", "Murano", "Pathfinder", "Patrol", "Navara", "Titan", "Rogue", "Armada", "Laurel"
-                }
-            },
-            { "Kawasaki", new string[]
-                {
-                   "Ninja", "Versys", "Concours", "Vulcan", "Zephyr", "Eliminator", "Kaze", "Brute", "Estrella", "Meguro", "Balius", "Voyager", "Spectre", "DTracker", "Zed"
-                }
-            },
-            { "BMW", new string[]
-                {
-                  "Roadster", "Touring", "Classic", "Cruiser", "Stratos", "Avus", "Dakar", "Kompressor", "Isetta", "Mille", "Venture", "GranTurismo", "Speedster", "Cabrio", "Alpina"
-                }
-            },
-            { "Lamborghini", new string[]
-                {
-                  "Aventador", "Huracan", "Urus", "Gallardo", "Murcielago", "Diablo", "Reventon", "Veneno", "Countach", "Sian", "Miura", "Essenza", "Centenario", "Jarama", "Islero"
-                }
-            },
-            { "Honda", new string[]
-                {
-                   "Civic", "Accord", "Prelude", "Fit", "Pilot", "Ridgeline", "Goldwing", "Fireblade", "Hornet", "Transalp", "Shadow", "Deauville", "Dominator", "Magna", "Rebel"
-                }
-            },
-            { "Porsche", new string[]
-                {
-                  "Cayman", "Boxster", "Taycan", "Macan", "Panamera", "Cayenne", "Carrera", "Spyder", "Speedster", "Targa", "MissionE", "Clubsport", "Sebring", "Martini", "Cisitalia"
-                }
-            },
-            };
+                "PANIGALE", "MONSTER", "DIAVEL", "HYPERMOTARD", "MULTISTRADA", "SCRAMBLER", "CORSE", "EVOLUZIONE", "DESMOSEDICI", "SUPERSPORT", "MOTARD", "REGOLARITA", "CAGIVA", "INDIANA", "CUCCIOLO"
+            }
+        },
+        { "Ferrari", new string[]
+            {
+                "TESTAROSSA", "ENZO", "ROMA", "PORTOFINO", "MODENA", "MARANELLO", "SCUDERIA", "STRADALE", "GTO", "MONZA", "DAYTONA", "PUROSANGUE", "CHALLENGE", "DINO", "CALIFORNIA"
+            }
+        },
+        { "Yamaha", new string[]
+            {
+                "RAPTOR", "TRACER", "TENERE", "BOLT", "FAZER", "WARRIOR", "DRAGSTAR", "ROADLINER", "VIRAGO", "MAXIM", "STAR", "RAIDER", "VENTURE", "MORPHOUS", "VINO"
+            }
+        },
+        { "Suzuki", new string[]
+            {
+                "HAYABUSA", "KATANA", "VSTROM", "BURGMAN", "BANDIT", "INTRUDER", "GLADIUS", "MARAUDER", "SAVAGE", "TEMPTER", "HUSTLER", "FREEWIND", "MADURA", "DESPERADO", "BOULEVARD"
+            }
+        },
+        { "Nissan", new string[]
+            {
+                "SKYLINE", "SILVIA", "FAIRLADY", "CEDRIC", "JUKE", "ALTIMA", "MAXIMA", "MURANO", "PATHFINDER", "PATROL", "NAVARA", "TITAN", "ROGUE", "ARMADA", "LAUREL"
+            }
+        },
+        { "Kawasaki", new string[]
+            {
+                "NINJA", "VERSYS", "CONCOURS", "VULCAN", "ZEPHYR", "ELIMINATOR", "KAZE", "BRUTE", "ESTRELLA", "MEGURO", "BALIUS", "VOYAGER", "SPECTRE", "DTRACKER", "ZED"
+            }
+        },
+        { "BMW", new string[]
+            {
+                "ROADSTER", "TOURING", "CLASSIC", "CRUISER", "STRATOS", "AVUS", "DAKAR", "KOMPRESSOR", "ISETTA", "MILLE", "VENTURE", "GRANTURISMO", "SPEEDSTER", "CABRIO", "ALPINA"
+            }
+        },
+        { "Lamborghini", new string[]
+            {
+                "AVENTADOR", "HURACAN", "URUS", "GALLARDO", "MURCIELAGO", "DIABLO", "REVENTON", "VENENO", "COUNTACH", "SIAN", "MIURA", "ESSENZA", "CENTENARIO", "JARAMA", "ISLERO"
+            }
+        },
+        { "Honda", new string[]
+            {
+                "CIVIC", "ACCORD", "PRELUDE", "FIT", "PILOT", "RIDGELINE", "GOLDWING", "FIREBLADE", "HORNET", "TRANSALP", "SHADOW", "DEAUVILLE", "DOMINATOR", "MAGNA", "REBEL"
+            }
+        },
+        { "Porsche", new string[]
+            {
+                "CAYMAN", "BOXSTER", "TAYCAN", "MACAN", "PANAMERA", "CAYENNE", "CARRERA", "SPYDER", "SPEEDSTER", "TARGA", "MISSIONE", "CLUBSPORT", "SEBRING", "MARTINI", "CISITALIA"
+            }
+        },
+    };
 
             foreach (KeyValuePair<string, string[]> category in wordsDictionary)
             {
