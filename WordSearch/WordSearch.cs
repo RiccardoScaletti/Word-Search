@@ -4,16 +4,15 @@ using System.Linq;
 
 namespace WordSearch
 {
-
     enum Directions
     {
-        HorizontalLeftRight, 
-        HorizontalRightLeft, 
-        VerticalTopDown, 
-        VerticalDownTop, 
-        DiagonalDownForward, 
-        DiagonalUpForward, 
-        DiagonalDownBackward, 
+        HorizontalLeftRight,
+        HorizontalRightLeft,
+        VerticalTopDown,
+        VerticalDownTop,
+        DiagonalDownForward,
+        DiagonalUpForward,
+        DiagonalDownBackward,
         DiagonalUpBackward,
     }
 
@@ -21,7 +20,7 @@ namespace WordSearch
     {
         static Random random = new Random();
 
-        static string[][] grid = new string[21][]; 
+        static string[][] grid = new string[21][];
         static string[] categories;
         static string[] words;
         static string playerInput = "";
@@ -44,7 +43,7 @@ namespace WordSearch
         static int colInputInt;
         static int nOfCheckedWords;
 
-
+        private static Dictionary<string, int[]> wordPositions = new Dictionary<string, int[]>();
         static void Main(string[] args)
         {
 
@@ -55,7 +54,7 @@ namespace WordSearch
             Console.WriteLine("Select one of this categories \n");
             GetCategories();
 
-            
+
             stop = false;
 
             //player game inputs
@@ -71,8 +70,8 @@ namespace WordSearch
                     }
                     else
                     {
-                       stop = true;
-                       break; 
+                        stop = true;
+                        break;
                     }
                 }
                 else
@@ -86,41 +85,40 @@ namespace WordSearch
 
             switch (playerInputInt)
             {
-                    case 0:
+                case 0:
                     GetWords("Ducati");
                     break;
-                    case 1:
+                case 1:
                     GetWords("Ferrari");
                     break;
-                    case 2:
+                case 2:
                     GetWords("Yamaha");
                     break;
-                    case 3:
+                case 3:
                     GetWords("Suzuki");
                     break;
-                    case 4:
+                case 4:
                     GetWords("Nissan");
                     break;
-                    case 5:
+                case 5:
                     GetWords("Kawasaki");
                     break;
-                    case 6:
+                case 6:
                     GetWords("BMW");
                     break;
-                    case 7:
+                case 7:
                     GetWords("Lamborghini");
                     break;
-                    case 8:
+                case 8:
                     GetWords("Honda");
                     break;
-                    case 9:
+                case 9:
                     GetWords("Porsche");
                     break;
             }
 
             InitializeGrid();
             InsertWordsInGrid();
-
             DisplayGrid();
 
             do //main gameplay loop
@@ -128,8 +126,8 @@ namespace WordSearch
                 stop = true;
                 do //player word input loop
                 {
-                    
-                    Console.WriteLine("Which word are you looking for? \n");
+
+                    Console.WriteLine("\n Which word are you looking for? \n");
                     playerInput = Console.ReadLine();
 
                     foreach (string word in words)
@@ -141,16 +139,16 @@ namespace WordSearch
                         }
                     }
                     if (stop)
-                    {  
+                    {
                         Console.WriteLine("input is not in the list of models, try again: \n");
                     }
-                   
+
                 } while (stop);
 
                 AskCoordinates();
                 CheckCoordinates(playerInput);
 
-                
+
                 if (coordinatesCheck)//keep playing
                 {
                     Console.WriteLine("Word found! \n");
@@ -159,20 +157,20 @@ namespace WordSearch
                     {
                         isPlaying = false;
                     }
-                    DisplayGrid();
+                    DisplayGrid(); 
                 }
-                else if(!coordinatesCheck)//wrong word/wrong input
+                else if (!coordinatesCheck)//wrong word/wrong input
                 {
                     Console.WriteLine("Word not found! \n");
                 }
-                
+
             } while (isPlaying);
 
         }
-    
+
         private static void GetCategories()
         {
-           
+
             categories = TextFileGenerator.wordsDictionary.Keys.ToArray();
             for (int i = 0; i < categories.Length; i++)
             {
@@ -193,23 +191,23 @@ namespace WordSearch
         {
             for (int i = 0; i < grid.Length; i++)
             {
-                grid[i] = new string[grid.Length]; 
+                grid[i] = new string[grid.Length];
             }
 
             grid[0][0] = "0";
 
             for (int i = 1; i < grid.Length; i++)
             {
-                grid[0][i] = i.ToString(); 
+                grid[0][i] = i.ToString();
                 grid[i][0] = i.ToString();
             }
 
-           
+
             for (int row = 1; row < grid.Length; row++)
             {
                 for (int col = 1; col < grid.Length; col++)
                 {
-                    grid[row][col] = ((char)('A' + random.Next(0, 26))).ToString(); 
+                    grid[row][col] = ((char)('A' + random.Next(0, 26))).ToString();
                 }
             }
         }
@@ -225,16 +223,11 @@ namespace WordSearch
                     startRow = random.Next(grid.Length);
                     startCol = random.Next(grid.Length);
 
-                    Array DirectionValues = Enum.GetValues(typeof(Directions)); //getValues gives back an array of all the values of Directions
+                    Array DirectionValues = Enum.GetValues(typeof(Directions));
                     Directions dir = (Directions)random.Next(DirectionValues.Length);
-                    
+
                     switch (dir)
                     {
-                        default:
-                            Console.WriteLine("wrong direction");
-                            RowOffset = 0;
-                            ColOffset = 0;
-                            break;
                         case Directions.HorizontalLeftRight:
                             RowOffset = 0;
                             ColOffset = 1;
@@ -267,8 +260,13 @@ namespace WordSearch
                             RowOffset = 1;
                             ColOffset = -1;
                             break;
+                        default:
+                            RowOffset = 0;
+                            ColOffset = 0;
+                            break;
                     }
 
+                    // Check if word fits
                     for (int i = 0; i < currentWord.Length; i++)
                     {
                         int newRow = startRow + i * RowOffset;
@@ -276,9 +274,8 @@ namespace WordSearch
 
                         if (newRow < 1 || newRow >= grid.Length || newCol < 1 || newCol >= grid[newRow].Length)
                         {
-                            Console.WriteLine("false");
                             canPlace = false;
-                            break; 
+                            break;
                         }
                     }
 
@@ -288,14 +285,17 @@ namespace WordSearch
                         {
                             int newRow = startRow + i * RowOffset;
                             int newCol = startCol + i * ColOffset;
-                            grid[newRow][newCol] = currentWord[i].ToString().ToLower(); 
+                            grid[newRow][newCol] = currentWord[i].ToString().ToLower();
                         }
-                        inserted = true; 
+
+                        wordPositions[currentWord] = new int[] { startRow, startCol, RowOffset, ColOffset };
+
+                        inserted = true;
                     }
                 }
             }
         }
-     
+
         private static void DisplayGrid()
         {
             for (int row = 0; row < grid.Length; row++)
@@ -315,7 +315,7 @@ namespace WordSearch
         }
 
         private static void AskCoordinates()
-        { 
+        {
             Console.WriteLine("Insert row of your word: ");
 
             stop = false;
@@ -376,28 +376,30 @@ namespace WordSearch
 
         private static void CheckCoordinates(string currentWord)
         {
-            Console.WriteLine("current word: " + currentWord);
+            Console.WriteLine("Checking word: " + currentWord);
             coordinatesCheck = false;
+
+            int[] position = wordPositions[currentWord];
+            int startRow = position[0];
+            int startCol = position[1];
+            int rowOffset = position[2];
+            int colOffset = position[3];
 
             for (int i = 0; i < currentWord.Length; i++)
             {
-               
-                int newRow = rowInputInt + i * RowOffset;
-                int newCol = colInputInt + i * ColOffset;
+                int newRow = startRow + i * rowOffset;
+                int newCol = startCol + i * colOffset;
 
-                Console.WriteLine("New row:" + newRow);
-
-                Console.WriteLine("grid letter: " + grid[newRow][newCol]);
-                Console.WriteLine("Input letter: " + currentWord[i].ToString().ToLower());
-
-                if (grid[newRow][newCol] != currentWord[i].ToString().ToLower())
+                if (grid[newRow][newCol] == currentWord[i].ToString().ToLower())
                 {
-                    return;  
+                    coordinatesCheck = true;
+                    grid[newRow][newCol] = "";
                 }
-                grid[newRow][newCol] = "";
+                else
+                {
+                    return;
+                }
             }
-            coordinatesCheck = true;
-            
         }
     }
 }
