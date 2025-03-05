@@ -31,7 +31,6 @@ namespace WordSearch
         static bool stop;
         static bool isPlaying = true;
         static bool coordinatesCheck = false;
-        static bool wordFoundCheck = false;
 
         static int playerInputInt = 0;
         static int startRow;
@@ -54,7 +53,6 @@ namespace WordSearch
 
             Console.WriteLine("Select one of this categories \n");
             GetCategories();
-
 
             stop = false;
 
@@ -149,7 +147,6 @@ namespace WordSearch
 
                 AskCoordinates();
                 CheckCoordinates(playerInput);
-
 
                 if (coordinatesCheck)//keep playing
                 {

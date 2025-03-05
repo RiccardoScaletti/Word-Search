@@ -18,12 +18,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -32,7 +28,7 @@
               "RelativeDocumentMoniker": "WordSearch.cs",
               "ToolTip": "D:\\COSE\\ACC\\Game1377_Exercises\\WordSearch\\WordSearch\\WordSearch.cs",
               "RelativeToolTip": "WordSearch.cs",
-              "ViewState": "AgIAAEoBAAAAAAAAAAAAAKYBAAAsAAAAAAAAAA==",
+              "ViewState": "AgIAABYAAAAAAAAAAAAQwCEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-17T02:38:02.437Z",
               "EditorCaption": ""
@@ -45,9 +41,14 @@
               "RelativeDocumentMoniker": "TextFileGenerator.cs",
               "ToolTip": "D:\\COSE\\ACC\\Game1377_Exercises\\WordSearch\\WordSearch\\TextFileGenerator.cs",
               "RelativeToolTip": "TextFileGenerator.cs",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAswEEAAAAGAAAAAAAAAA==",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAgwBIAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-16T20:11:33.901Z"
+              "WhenOpened": "2025-02-16T20:11:33.901Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             }
           ]
         }
