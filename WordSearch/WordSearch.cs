@@ -155,10 +155,11 @@ namespace WordSearch
                 {
                     Console.WriteLine("Word found! \n");
                     nOfCheckedWords++;
-                    if (nOfCheckedWords == 2)
+                    if (nOfCheckedWords == 8)
                     {
                         isPlaying = false;
                     }
+                    DisplayGrid();
                 }
                 else if(!coordinatesCheck)//wrong word/wrong input
                 {
@@ -375,11 +376,12 @@ namespace WordSearch
 
         private static void CheckCoordinates(string currentWord)
         {
-            Console.WriteLine("current word: " + currentWord);           
+            Console.WriteLine("current word: " + currentWord);
+            coordinatesCheck = false;
 
             for (int i = 0; i < currentWord.Length; i++)
             {
-                coordinatesCheck = false;
+               
                 int newRow = rowInputInt + i * RowOffset;
                 int newCol = colInputInt + i * ColOffset;
 
@@ -388,12 +390,14 @@ namespace WordSearch
                 Console.WriteLine("grid letter: " + grid[newRow][newCol]);
                 Console.WriteLine("Input letter: " + currentWord[i].ToString().ToLower());
 
-                if (grid[newRow][newCol] == currentWord[i].ToString().ToLower())
+                if (grid[newRow][newCol] != currentWord[i].ToString().ToLower())
                 {
-                    coordinatesCheck = true;
-                    grid[newRow][newCol] = "";
+                    return;  
                 }
+                grid[newRow][newCol] = "";
             }
+            coordinatesCheck = true;
+            
         }
     }
 }
